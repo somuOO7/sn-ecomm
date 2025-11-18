@@ -22,7 +22,7 @@ export default function Layout() {
             label="Shopping"
           />
         </TabTrigger>
-        <TabTrigger href="/whishlist" name="Wishlist" asChild>
+        <TabTrigger href="/wishlist" name="Wishlist" asChild>
           <DashboardBottomTabItem
             selectedIcon={Icons.HeartFill}
             unselectedIcon={Icons.HeartOutline}
