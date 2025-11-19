@@ -1,8 +1,6 @@
-import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { TouchableOpacity } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,12 +25,7 @@ export default function RootLayout() {
   return (
     <Stack
       screenOptions={{
-        headerLeft: ({ canGoBack }) =>
-          canGoBack ? (
-            <TouchableOpacity onPress={() => router.back()}>
-              <Ionicons name="close" size={24} color="black" />
-            </TouchableOpacity>
-          ) : null,
+        headerShown: false,
       }}
     />
   );
