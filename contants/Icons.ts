@@ -8,6 +8,8 @@ export const Icons = {
   HomeOutline: require("@/assets/icons/home-outline.svg"),
   ProfileFill: require("@/assets/icons/profile-fill.svg"),
   ProfileOutline: require("@/assets/icons/profile-outline.svg"),
+  Search: require("@/assets/icons/search.svg"),
+  Setting: require("@/assets/icons/setting.svg"),
   ShoppingBagFill: require("@/assets/icons/shopping-bag-fill.svg"),
   ShoppingBagOutline: require("@/assets/icons/shopping-bag-outline.svg"),
 };

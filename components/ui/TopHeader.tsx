@@ -19,7 +19,7 @@ const TopHeader = () => {
         />
       </View>
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, gap: 4 }}>
         <Label variant="regular">Hello Alex</Label>
         <Label variant="bold">Good Morning!</Label>
       </View>
