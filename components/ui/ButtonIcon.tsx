@@ -1,5 +1,6 @@
 import { Colors } from "@/contants/Colors";
 import { Icons } from "@/contants/Icons";
+import { Sizes } from "@/contants/Sizes";
 import { Image } from "expo-image";
 import React from "react";
 import { Pressable, PressableProps, StyleSheet } from "react-native";
@@ -62,7 +63,7 @@ const ButtonIcon = (props: ButtonIconProps) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderRadius: 16,
+    borderRadius: Sizes.borderRadius,
   },
   icon: {
     width: 24,

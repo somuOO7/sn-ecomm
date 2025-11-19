@@ -1,5 +1,6 @@
 import { Colors } from '@/contants/Colors'
 import { Icons } from '@/contants/Icons'
+import { Sizes } from "@/contants/Sizes";
 import { Image } from 'expo-image'
 import React from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.inputBackground,
     padding: 14,
-    borderRadius: 14,
+    borderRadius: Sizes.borderRadius,
     flexDirection: "row",
     alignItems: "center",
     flex: 1,

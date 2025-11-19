@@ -1,5 +1,6 @@
 import { Colors } from "@/contants/Colors";
 import { Icons } from "@/contants/Icons";
+import { Sizes } from "@/contants/Sizes";
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import ButtonIcon from "./ButtonIcon";
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     height: 44,
     width: 44,
     backgroundColor: Colors.primary,
-    borderRadius: 18,
+    borderRadius: Sizes.borderRadius,
     overflow: "hidden",
   },
 });

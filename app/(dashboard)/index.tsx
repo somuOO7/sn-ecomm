@@ -1,3 +1,4 @@
+import MultiBannerLarge from "@/components/Banner/MultiBannerLarge";
 import SearchWithFilter from "@/components/ui/SearchWithFilter";
 import TopHeader from "@/components/ui/TopHeader";
 import { Colors } from "@/contants/Colors";
@@ -18,6 +19,12 @@ export default function Index() {
         >
           <TopHeader />
           <SearchWithFilter />
+          <MultiBannerLarge
+            bannerList={[
+              { id: "123", title: "Test" },
+              { id: "1234", title: "Test2" },
+            ]}
+          />
         </SafeAreaView>
       </TouchableWithoutFeedback>
     </>
