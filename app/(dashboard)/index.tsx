@@ -26,7 +26,11 @@ export default function Index() {
                 title: "Get Your Special Sale Upto 40%",
                 imageUrl: require("@/assets/images/dummy/dummy-1.png"),
               },
-              { id: "1234", title: "Test2" },
+              {
+                id: "1234",
+                title: "Test2",
+                imageUrl: require("@/assets/images/dummy/dummy-2.png"),
+              },
               { id: "12345", title: "Test3" },
               { id: "123456", title: "Test4" },
             ]}

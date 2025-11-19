@@ -10,7 +10,7 @@ import Animated, {
   useSharedValue,
   withDelay,
   withSequence,
-  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import Button from "../ui/Button";
 import Label from "../ui/Label";
@@ -26,7 +26,7 @@ interface MultiBannerLargeProps {
 
 const BANNER_HEIGHT = 180;
 const BANNER_PADDING = 16;
-const BANNER_ANIMATION_TIME = 1000;
+const BANNER_ANIMATION_TIME = 5000;
 
 const MultiBannerLarge = (props: MultiBannerLargeProps) => {
   const bannerContentPosition = useSharedValue(0);
@@ -36,18 +36,32 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
     };
   }, []);
 
+  const imageAnimatedPosition = useSharedValue(0);
+  const imageAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: imageAnimatedPosition.value }],
+    };
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
-      const animations = [];
-      for (let i = 0; i < props.bannerList.length; i++) {
-        animations.push(
-          withDelay(BANNER_ANIMATION_TIME, withSpring(-BANNER_HEIGHT * i))
+      const contentAnimations = [];
+      const imageAnimations = [];
+      for (let i = 1; i < props.bannerList.length; i++) {
+        contentAnimations.push(
+          withDelay(BANNER_ANIMATION_TIME, withTiming(-BANNER_HEIGHT * i))
         );
+        imageAnimations.push(
+          withDelay(BANNER_ANIMATION_TIME - 300, withTiming(200))
+        );
+        imageAnimations.push(withTiming(0));
       }
-      bannerContentPosition.value = withSequence(...animations);
+      bannerContentPosition.value = withSequence(...contentAnimations);
+      imageAnimatedPosition.value = withSequence(...imageAnimations);
 
       return () => {
         bannerContentPosition.value = 0;
+        imageAnimatedPosition.value = 0;
       };
     }, [])
   );
@@ -77,13 +91,16 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
               <Button />
             </Animated.View>
             {bannerItem.imageUrl && (
-              <View style={{ flex: 1 }}>
+              <Animated.View style={[{ flex: 1 }, imageAnimatedStyle]}>
                 <Image
                   source={bannerItem.imageUrl}
-                  style={{ height: "100%", flex: 1 }}
+                  style={{
+                    height: "100%",
+                    flex: 1,
+                  }}
                   contentFit="contain"
                 />
-              </View>
+              </Animated.View>
             )}
           </View>
         );
@@ -104,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     borderRadius: Sizes.borderRadius,
     paddingHorizontal: BANNER_PADDING,
-    overflow: "visible",
+    overflow: "hidden",
   },
   content: {
     flexDirection: "row",
