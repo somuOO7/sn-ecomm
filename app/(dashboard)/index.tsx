@@ -23,6 +23,8 @@ export default function Index() {
             bannerList={[
               { id: "123", title: "Test" },
               { id: "1234", title: "Test2" },
+              { id: "12345", title: "Test3" },
+              { id: "123456", title: "Test4" },
             ]}
           />
         </SafeAreaView>

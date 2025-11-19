@@ -1,11 +1,14 @@
 import { Colors } from "@/contants/Colors";
 import { Sizes } from "@/contants/Sizes";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect } from "react";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
+  withSequence,
   withSpring,
 } from "react-native-reanimated";
 import Label from "../ui/Label";
@@ -21,6 +24,7 @@ interface MultiBannerLargeProps {
 
 const BANNER_HEIGHT = 180;
 const BANNER_PADDING = 16;
+const BANNER_ANIMATION_TIME = 1000;
 
 const MultiBannerLarge = (props: MultiBannerLargeProps) => {
   const bannerContentPosition = useSharedValue(0);
@@ -30,13 +34,24 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      bannerContentPosition.value = withSpring(
-        bannerContentPosition.value - BANNER_HEIGHT + BANNER_PADDING * 2
-      );
-    }, 3000);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const animations = [];
+      for (let i = 0; i < props.bannerList.length; i++) {
+        animations.push(
+          withDelay(
+            BANNER_ANIMATION_TIME,
+            withSpring(-(BANNER_HEIGHT - BANNER_PADDING * 2) * i)
+          )
+        );
+      }
+      bannerContentPosition.value = withSequence(...animations);
+
+      return () => {
+        bannerContentPosition.value = 0;
+      };
+    }, [])
+  );
 
   return (
     <LinearGradient
@@ -81,11 +96,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     justifyContent: "center",
-    // transform: [
-    //   {
-    //     translateY: -BANNER_HEIGHT + BANNER_PADDING * 2,
-    //   },
-    // ],
   },
   pagination: {
     position: "absolute",
