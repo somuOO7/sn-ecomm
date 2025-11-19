@@ -1,12 +1,13 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import Label from "@/components/ui/Label";
+import React from "react";
+import { View } from "react-native";
 
 const shopping = () => {
   return (
     <View>
-      <Text>shopping</Text>
+      <Label>shopping</Label>
     </View>
-  )
-}
+  );
+};
 
-export default shopping
+export default shopping;

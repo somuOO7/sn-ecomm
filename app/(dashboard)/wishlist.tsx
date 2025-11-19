@@ -1,12 +1,13 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import Label from "@/components/ui/Label";
+import React from "react";
+import { View } from "react-native";
 
 const wishlist = () => {
   return (
     <View>
-      <Text>wishlist</Text>
+      <Label>wishlist</Label>
     </View>
-  )
-}
+  );
+};
 
-export default wishlist
+export default wishlist;

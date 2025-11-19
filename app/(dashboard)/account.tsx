@@ -1,12 +1,13 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import Label from "@/components/ui/Label";
+import React from "react";
+import { View } from "react-native";
 
 const account = () => {
   return (
     <View>
-      <Text>account</Text>
+      <Label>account</Label>
     </View>
-  )
-}
+  );
+};
 
-export default account
+export default account;

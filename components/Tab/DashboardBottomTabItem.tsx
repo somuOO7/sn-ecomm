@@ -6,15 +6,15 @@ import {
   Pressable,
   StyleProp,
   StyleSheet,
-  Text,
   View,
-  ViewStyle,
+  ViewStyle
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import Label from "../ui/Label";
 
 interface DashboardBottomTabItemProps {
   selectedIcon: any;
@@ -71,7 +71,7 @@ const DashboardBottomTabItem = React.forwardRef<
         ]}
         contentFit="contain"
       />
-      <Text>{label}</Text>
+      <Label>{label}</Label>
     </Pressable>
   );
 });

@@ -1,18 +1,19 @@
-import { Stack, useLocalSearchParams } from 'expo-router'
-import React from 'react'
-import { Text, View } from 'react-native'
+import Label from "@/components/ui/Label";
+import { Stack, useLocalSearchParams } from "expo-router";
+import React from "react";
+import { View } from "react-native";
 
 const index = () => {
-  const { title } = useLocalSearchParams()
+  const { title } = useLocalSearchParams();
 
   return (
     <>
-      <Stack.Screen options={{ title: title as string || 'Product' }} />
+      <Stack.Screen options={{ title: (title as string) || "Product" }} />
       <View>
-        <Text>index</Text>
+        <Label>index</Label>
       </View>
     </>
-  )
-}
+  );
+};
 
-export default index
+export default index;

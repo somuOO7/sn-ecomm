@@ -1,4 +1,4 @@
-import DashboardBottomTabItem from "@/components/DashboardBottomTabItem";
+import DashboardBottomTabItem from "@/components/Tab/DashboardBottomTabItem";
 import { Icons } from "@/contants/Icons";
 import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
 import { StyleSheet } from "react-native";
