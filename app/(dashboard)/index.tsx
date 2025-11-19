@@ -21,7 +21,11 @@ export default function Index() {
           <SearchWithFilter />
           <MultiBannerLarge
             bannerList={[
-              { id: "123", title: "Test" },
+              {
+                id: "123",
+                title: "Get Your Special Sale Upto 40%",
+                imageUrl: require("@/assets/images/dummy/dummy-1.png"),
+              },
               { id: "1234", title: "Test2" },
               { id: "12345", title: "Test3" },
               { id: "123456", title: "Test4" },
