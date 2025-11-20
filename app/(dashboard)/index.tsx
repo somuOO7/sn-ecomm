@@ -31,8 +31,16 @@ export default function Index() {
                 title: "Test2",
                 imageUrl: require("@/assets/images/dummy/dummy-2.png"),
               },
-              { id: "12345", title: "Test3" },
-              { id: "123456", title: "Test4" },
+              {
+                id: "12345",
+                title: "Test3",
+                imageUrl: require("@/assets/images/dummy/dummy-1.png"),
+              },
+              {
+                id: "123456",
+                title: "Test4",
+                imageUrl: require("@/assets/images/dummy/dummy-2.png"),
+              },
             ]}
           />
         </SafeAreaView>

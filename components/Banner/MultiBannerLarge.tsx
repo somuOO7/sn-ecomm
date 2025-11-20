@@ -9,6 +9,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
+  withRepeat,
   withSequence,
   withTiming,
 } from "react-native-reanimated";
@@ -26,7 +27,7 @@ interface MultiBannerLargeProps {
 
 const BANNER_HEIGHT = 180;
 const BANNER_PADDING = 16;
-const BANNER_ANIMATION_TIME = 5000;
+const BANNER_ANIMATION_TIME = 2000;
 
 const MultiBannerLarge = (props: MultiBannerLargeProps) => {
   const bannerContentPosition = useSharedValue(0);
@@ -36,32 +37,65 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
     };
   }, []);
 
-  const imageAnimatedPosition = useSharedValue(0);
+  const imageTranslateXPosition = useSharedValue(0);
+  const imageTranslateYPosition = useSharedValue(0);
   const imageAnimatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: imageAnimatedPosition.value }],
+      transform: [
+        { translateX: imageTranslateXPosition.value },
+        { translateY: imageTranslateYPosition.value },
+      ],
     };
   }, []);
 
   useFocusEffect(
     useCallback(() => {
       const contentAnimations = [];
-      const imageAnimations = [];
+      const imageXAnimations = [];
+      const imageYAnimations = [];
+
       for (let i = 1; i < props.bannerList.length; i++) {
         contentAnimations.push(
           withDelay(BANNER_ANIMATION_TIME, withTiming(-BANNER_HEIGHT * i))
         );
-        imageAnimations.push(
+        imageYAnimations.push(
+          withDelay(BANNER_ANIMATION_TIME, withTiming(-BANNER_HEIGHT * i))
+        );
+        imageXAnimations.push(
           withDelay(BANNER_ANIMATION_TIME - 300, withTiming(200))
         );
-        imageAnimations.push(withTiming(0));
+        imageXAnimations.push(withTiming(0));
       }
-      bannerContentPosition.value = withSequence(...contentAnimations);
-      imageAnimatedPosition.value = withSequence(...imageAnimations);
+
+      contentAnimations.push(withDelay(BANNER_ANIMATION_TIME, withTiming(0)));
+      imageYAnimations.push(withDelay(BANNER_ANIMATION_TIME, withTiming(0)));
+      imageXAnimations.push(
+        withDelay(BANNER_ANIMATION_TIME - 300, withTiming(200))
+      );
+      imageXAnimations.push(withTiming(0));
+
+      bannerContentPosition.value = withRepeat(
+        withSequence(...contentAnimations),
+        -1,
+        false
+      );
+
+      imageTranslateYPosition.value = withRepeat(
+        withSequence(...imageYAnimations),
+        -1,
+        false
+      );
+
+      imageTranslateXPosition.value = withRepeat(
+        withSequence(...imageXAnimations),
+        -1,
+        false
+      );
 
       return () => {
         bannerContentPosition.value = 0;
-        imageAnimatedPosition.value = 0;
+        imageTranslateYPosition.value = 0;
+        imageTranslateXPosition.value = 0;
       };
     }, [])
   );
@@ -82,7 +116,11 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
           <View style={styles.content} key={bannerItem.id}>
             <Animated.View style={[bannerAnimatedStyle, styles.leftContainer]}>
               <Label
-                style={{ fontSize: 25, color: Colors.white }}
+                style={{
+                  fontSize: 25,
+                  color: Colors.white,
+                  width: "100%",
+                }}
                 variant="bold"
               >
                 {bannerItem.title}
