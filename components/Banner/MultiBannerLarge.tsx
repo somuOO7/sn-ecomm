@@ -27,7 +27,7 @@ interface MultiBannerLargeProps {
 
 const BANNER_HEIGHT = 180;
 const BANNER_PADDING = 16;
-const BANNER_ANIMATION_TIME = 2000;
+const BANNER_ANIMATION_TIME = 5000;
 
 const MultiBannerLarge = (props: MultiBannerLargeProps) => {
   const bannerContentPosition = useSharedValue(0);
@@ -39,12 +39,14 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
 
   const imageTranslateXPosition = useSharedValue(0);
   const imageTranslateYPosition = useSharedValue(0);
+  const imageOpacity = useSharedValue(1);
   const imageAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
         { translateX: imageTranslateXPosition.value },
         { translateY: imageTranslateYPosition.value },
       ],
+      opacity: imageOpacity.value,
     };
   }, []);
 
@@ -53,6 +55,7 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
       const contentAnimations = [];
       const imageXAnimations = [];
       const imageYAnimations = [];
+      const imageOpacityAnimations = [];
 
       for (let i = 1; i < props.bannerList.length; i++) {
         contentAnimations.push(
@@ -62,17 +65,25 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
           withDelay(BANNER_ANIMATION_TIME, withTiming(-BANNER_HEIGHT * i))
         );
         imageXAnimations.push(
-          withDelay(BANNER_ANIMATION_TIME - 300, withTiming(200))
+          withDelay(BANNER_ANIMATION_TIME - 300, withTiming(1000))
+        );
+        imageOpacityAnimations.push(
+          withDelay(BANNER_ANIMATION_TIME - 300, withTiming(0))
         );
         imageXAnimations.push(withTiming(0));
+        imageOpacityAnimations.push(withTiming(1));
       }
 
       contentAnimations.push(withDelay(BANNER_ANIMATION_TIME, withTiming(0)));
       imageYAnimations.push(withDelay(BANNER_ANIMATION_TIME, withTiming(0)));
       imageXAnimations.push(
-        withDelay(BANNER_ANIMATION_TIME - 300, withTiming(200))
+        withDelay(BANNER_ANIMATION_TIME - 300, withTiming(3500))
+      );
+      imageOpacityAnimations.push(
+        withDelay(BANNER_ANIMATION_TIME - 300, withTiming(0))
       );
       imageXAnimations.push(withTiming(0));
+      imageOpacityAnimations.push(withTiming(1));
 
       bannerContentPosition.value = withRepeat(
         withSequence(...contentAnimations),
@@ -92,10 +103,17 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
         false
       );
 
+      imageOpacity.value = withRepeat(
+        withSequence(...imageOpacityAnimations),
+        -1,
+        false
+      );
+
       return () => {
         bannerContentPosition.value = 0;
         imageTranslateYPosition.value = 0;
         imageTranslateXPosition.value = 0;
+        imageOpacity.value = 1;
       };
     }, [])
   );
