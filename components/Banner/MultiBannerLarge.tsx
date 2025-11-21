@@ -220,7 +220,9 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
                 {bannerItem.title}
               </Label>
 
-              <Button />
+              {bannerItem.actionTitle && (
+                <Button title={bannerItem.actionTitle} variant="secondary" />
+              )}
             </Animated.View>
             {bannerItem.imageUrl && (
               <Animated.View style={[{ flex: 1 }, imageAnimatedStyle]}>

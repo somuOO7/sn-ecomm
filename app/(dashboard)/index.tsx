@@ -25,6 +25,7 @@ export default function Index() {
                 id: "123",
                 title: "Get Your Special Sale Upto 40%",
                 imageUrl: require("@/assets/images/dummy/dummy-1.png"),
+                actionTitle: "Shop Now",
               },
               {
                 id: "1234",
@@ -35,6 +36,7 @@ export default function Index() {
                 id: "12345",
                 title: "Test3",
                 imageUrl: require("@/assets/images/dummy/dummy-1.png"),
+                actionTitle: "Shop Now",
               },
               {
                 id: "123456",
