@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import Label from "./Label";
+import Label from "../ui/Label";
 
 interface TopHeaderProps {
   title: string;

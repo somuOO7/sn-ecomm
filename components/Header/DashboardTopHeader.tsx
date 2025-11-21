@@ -3,8 +3,8 @@ import { Icons } from "@/contants/Icons";
 import { Sizes } from "@/contants/Sizes";
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
-import ButtonIcon from "./ButtonIcon";
-import Label from "./Label";
+import ButtonIcon from "../ui/ButtonIcon";
+import Label from "../ui/Label";
 
 const DashboardTopHeader = () => {
   return (
