@@ -38,14 +38,26 @@ const AnimatedPaginationItem = ({
   index: number;
   currentIndex: SharedValue<number>;
 }) => {
-  const paginationAnimatedStyle = useAnimatedStyle(() => {
+  const insidePaginationHeight = useSharedValue(0);
+  const insidePaginationAnimatedStyle = useAnimatedStyle(() => {
+    if (currentIndex.value === index) {
+      insidePaginationHeight.value = withTiming(1, {
+        duration: BANNER_ANIMATION_TIME,
+      });
+    } else if (currentIndex.value > index) {
+      insidePaginationHeight.value = withTiming(1);
+    } else {
+      insidePaginationHeight.value = withTiming(0);
+    }
     return {
-      flex:
-        currentIndex.value === index
-          ? withTiming(1, { duration: 300 })
-          : withTiming(0, { duration: 300 }),
+      height: `${insidePaginationHeight.value * 100}%`,
     };
   }, [index]);
+  const paginationAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      flex: currentIndex.value === index ? withTiming(1) : withTiming(0),
+    };
+  }, []);
 
   return (
     <Animated.View
@@ -55,16 +67,23 @@ const AnimatedPaginationItem = ({
           height: 18,
           width: 6,
           borderRadius: 3,
+          overflow: "hidden",
         },
         paginationAnimatedStyle,
       ]}
-    />
+    >
+      <Animated.View
+        style={[
+          { backgroundColor: Colors.primary },
+          insidePaginationAnimatedStyle,
+        ]}
+      />
+    </Animated.View>
   );
 };
 
 // MARK: Main component render
 const MultiBannerLarge = (props: MultiBannerLargeProps) => {
-  // MARK: Animation
   const bannerContentPosition = useSharedValue(0);
   const bannerAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -231,6 +250,7 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
   );
 };
 
+// MARK: Styles
 const styles = StyleSheet.create({
   container: {
     height: BANNER_HEIGHT,
