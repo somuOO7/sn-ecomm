@@ -1,6 +1,7 @@
 // Export SVG paths for use with expo-image or react-native-svg
 export const Icons = {
   BellOutline: require("@/assets/icons/bell-outline.svg"),
+  CartOutline: require("@/assets/icons/cart-outline.svg"),
   DownArrow: require("@/assets/icons/down-arrow.svg"),
   HeartFill: require("@/assets/icons/heart-fill.svg"),
   HeartOutline: require("@/assets/icons/heart-outline.svg"),
