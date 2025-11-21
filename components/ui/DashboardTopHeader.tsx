@@ -6,7 +6,7 @@ import { Image, StyleSheet, View } from "react-native";
 import ButtonIcon from "./ButtonIcon";
 import Label from "./Label";
 
-const TopHeader = () => {
+const DashboardTopHeader = () => {
   return (
     <View style={styles.container}>
       <View style={styles.avatarView}>
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TopHeader;
+export default DashboardTopHeader;
