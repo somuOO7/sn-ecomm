@@ -6,6 +6,7 @@ import { useFocusEffect } from "expo-router";
 import React, { useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
+  SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
@@ -29,7 +30,41 @@ const BANNER_HEIGHT = 180;
 const BANNER_PADDING = 16;
 const BANNER_ANIMATION_TIME = 5000;
 
+// MARK: Animated Pagination Item Component
+const AnimatedPaginationItem = ({
+  index,
+  currentIndex,
+}: {
+  index: number;
+  currentIndex: SharedValue<number>;
+}) => {
+  const paginationAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      flex:
+        currentIndex.value === index
+          ? withTiming(1, { duration: 300 })
+          : withTiming(0, { duration: 300 }),
+    };
+  }, [index]);
+
+  return (
+    <Animated.View
+      style={[
+        {
+          backgroundColor: Colors.white,
+          height: 18,
+          width: 6,
+          borderRadius: 3,
+        },
+        paginationAnimatedStyle,
+      ]}
+    />
+  );
+};
+
+// MARK: Main component render
 const MultiBannerLarge = (props: MultiBannerLargeProps) => {
+  // MARK: Animation
   const bannerContentPosition = useSharedValue(0);
   const bannerAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -49,6 +84,8 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
       opacity: imageOpacity.value,
     };
   }, []);
+
+  const paginationAnimateIndex = useSharedValue(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -109,11 +146,31 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
         false
       );
 
+      let paginationIndex = 0;
+
+      const animatePagination = () => {
+        paginationAnimateIndex.value = paginationIndex;
+        if (paginationIndex < props.bannerList.length - 1) {
+          setTimeout(() => {
+            paginationIndex++;
+            animatePagination();
+          }, BANNER_ANIMATION_TIME + 300);
+        } else {
+          setTimeout(() => {
+            paginationIndex = 0;
+            animatePagination();
+          }, BANNER_ANIMATION_TIME + 300);
+        }
+      };
+
+      animatePagination();
+
       return () => {
         bannerContentPosition.value = 0;
         imageTranslateYPosition.value = 0;
         imageTranslateXPosition.value = 0;
         imageOpacity.value = 1;
+        paginationAnimateIndex.value = 0;
       };
     }, [])
   );
@@ -162,9 +219,13 @@ const MultiBannerLarge = (props: MultiBannerLargeProps) => {
         );
       })}
       <View style={styles.pagination}>
-        {props.bannerList.map((bannerItem, index) => {
-          return <View key={index} style={styles.paginationItem} />;
-        })}
+        {props.bannerList.map((bannerItem, index) => (
+          <AnimatedPaginationItem
+            key={index}
+            index={index}
+            currentIndex={paginationAnimateIndex}
+          />
+        ))}
       </View>
     </LinearGradient>
   );
@@ -193,8 +254,8 @@ const styles = StyleSheet.create({
   pagination: {
     position: "absolute",
     right: BANNER_PADDING,
-    top: 0,
-    bottom: 0,
+    top: 16,
+    bottom: 16,
     flexDirection: "column",
     justifyContent: "center",
     gap: 6,
