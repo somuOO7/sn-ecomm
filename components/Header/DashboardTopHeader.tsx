@@ -1,6 +1,7 @@
 import { Colors } from "@/contants/Colors";
 import { Icons } from "@/contants/Icons";
 import { Sizes } from "@/contants/Sizes";
+import { Link } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import ButtonIcon from "../ui/ButtonIcon";
@@ -26,7 +27,9 @@ const DashboardTopHeader = () => {
       </View>
 
       <ButtonIcon icon={Icons.BellOutline} variant="secondary" />
-      <ButtonIcon icon={Icons.ShoppingBagOutline} variant="secondary" />
+      <Link href="/cart">
+        <ButtonIcon icon={Icons.CartOutline} variant="secondary" />
+      </Link>
     </View>
   );
 };
