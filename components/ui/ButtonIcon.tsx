@@ -7,7 +7,9 @@ import { Pressable, PressableProps, StyleSheet } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
+  withSequence,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
 
 interface ButtonIconProps extends PressableProps {
@@ -30,12 +32,32 @@ const ButtonIcon = (props: ButtonIconProps) => {
     pressableOpacity.value = withSpring(0.5);
   };
 
+  const iconPosition = useSharedValue(0);
+  const iconAnimationStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: iconPosition.value }],
+    };
+  }, []);
+
+  const animateCart = () => {
+    const animationList = [];
+    animationList.push(withSpring(40));
+    animationList.push(withTiming(-40, { duration: 0 }));
+    animationList.push(withSpring(0));
+    iconPosition.value = withSequence(...animationList);
+  };
+
   return (
     <Animated.View style={pressableAnimatedStyle}>
       <Pressable
         {...props}
         onPressIn={pressableFadeOut}
-        onPressOut={pressableFadeIn}
+        onPressOut={() => {
+          pressableFadeIn();
+          if (props.icon === Icons.CartOutline) {
+            animateCart();
+          }
+        }}
         style={(state) => [
           {
             backgroundColor:
@@ -45,16 +67,18 @@ const ButtonIcon = (props: ButtonIconProps) => {
           typeof props.style === "function" ? props.style(state) : props.style,
         ]}
       >
-        <Image
-          source={props.icon}
-          style={[
-            {
-              tintColor:
-                props.variant === "primary" ? Colors.white : Colors.black,
-            },
-            styles.icon,
-          ]}
-        />
+        <Animated.View style={iconAnimationStyle}>
+          <Image
+            source={props.icon}
+            style={[
+              {
+                tintColor:
+                  props.variant === "primary" ? Colors.white : Colors.black,
+              },
+              styles.icon,
+            ]}
+          />
+        </Animated.View>
       </Pressable>
     </Animated.View>
   );
@@ -64,6 +88,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     borderRadius: Sizes.borderRadius,
+    overflow: "hidden",
   },
   icon: {
     width: 24,

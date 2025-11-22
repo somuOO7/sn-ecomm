@@ -9,7 +9,7 @@ import Label from "../ui/Label";
 
 const GridCard = () => {
   return (
-    <View style={{ flex: 1, gap: 8 }}>
+    <View style={{ flex: 1, gap: 8, minWidth: "40%" }}>
       <View style={styles.imageContainer}>
         <Image
           source={require("@/assets/images/dummy/dummy-1.png")}
@@ -35,12 +35,12 @@ const GridCard = () => {
         <View>
           <Label variant="bold">Headphone</Label>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-            <Label variant="bold">$50</Label>
+            <Label variant="bold">$50.00</Label>
             <Label
               variant="light"
-              style={{ textDecorationLine: "line-through" }}
+              style={{ textDecorationLine: "line-through", fontSize: 10 }}
             >
-              $100
+              $100.00
             </Label>
           </View>
         </View>

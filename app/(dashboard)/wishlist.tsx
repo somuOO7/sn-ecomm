@@ -11,7 +11,8 @@ const wishlist = () => {
       <TopHeader title="My Wishlist" />
       <SearchWithFilter />
 
-      <View style={{ flexDirection: "row", gap: 16 }}>
+      <View style={{ flexDirection: "row", gap: 16, flexWrap: "wrap" }}>
+        <GridCard />
         <GridCard />
         <GridCard />
       </View>
