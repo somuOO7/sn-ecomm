@@ -14,7 +14,7 @@ import Animated, {
 
 interface ButtonIconProps extends PressableProps {
   icon: keyof typeof Icons;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "white";
 }
 
 const ButtonIcon = (props: ButtonIconProps) => {
@@ -47,6 +47,32 @@ const ButtonIcon = (props: ButtonIconProps) => {
     iconPosition.value = withSequence(...animationList);
   };
 
+  const getBackgroundColor = () => {
+    switch (props.variant) {
+      case "primary":
+        return Colors.primary;
+      case "secondary":
+        return Colors.secondary;
+      case "white":
+        return Colors.white;
+      default:
+        return Colors.secondary;
+    }
+  };
+
+  const getTintColor = () => {
+    switch (props.variant) {
+      case "primary":
+        return Colors.white;
+      case "secondary":
+        return Colors.black;
+      case "white":
+        return Colors.black;
+      default:
+        return Colors.black;
+    }
+  };
+
   return (
     <Animated.View style={pressableAnimatedStyle}>
       <Pressable
@@ -60,8 +86,7 @@ const ButtonIcon = (props: ButtonIconProps) => {
         }}
         style={(state) => [
           {
-            backgroundColor:
-              props.variant === "primary" ? Colors.primary : Colors.secondary,
+            backgroundColor: getBackgroundColor(),
           },
           styles.container,
           typeof props.style === "function" ? props.style(state) : props.style,
@@ -72,8 +97,7 @@ const ButtonIcon = (props: ButtonIconProps) => {
             source={props.icon}
             style={[
               {
-                tintColor:
-                  props.variant === "primary" ? Colors.white : Colors.black,
+                tintColor: getTintColor(),
               },
               styles.icon,
             ]}

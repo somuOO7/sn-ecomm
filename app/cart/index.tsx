@@ -13,7 +13,7 @@ const index = () => {
         title="My Cart"
         leftComponent={
           <Link href=".." asChild>
-            <ButtonIcon icon={Icons.BackArrow} />
+            <ButtonIcon variant="white" icon={Icons.BackArrow} />
           </Link>
         }
       />
