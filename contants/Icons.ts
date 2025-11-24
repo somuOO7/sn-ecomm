@@ -8,6 +8,8 @@ export const Icons = {
   HeartOutline: require("@/assets/icons/heart-outline.svg"),
   HomeFill: require("@/assets/icons/home-fill.svg"),
   HomeOutline: require("@/assets/icons/home-outline.svg"),
+  Minus: require("@/assets/icons/minus.svg"),
+  Plus: require("@/assets/icons/plus.svg"),
   ProfileFill: require("@/assets/icons/profile-fill.svg"),
   ProfileOutline: require("@/assets/icons/profile-outline.svg"),
   Search: require("@/assets/icons/search.svg"),
