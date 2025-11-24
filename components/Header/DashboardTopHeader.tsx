@@ -27,7 +27,7 @@ const DashboardTopHeader = () => {
       </View>
 
       <ButtonIcon icon={Icons.BellOutline} variant="secondary" />
-      <Link href="/cart">
+      <Link href="/cart" asChild>
         <ButtonIcon icon={Icons.CartOutline} variant="secondary" />
       </Link>
     </View>

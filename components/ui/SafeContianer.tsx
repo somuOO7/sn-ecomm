@@ -3,14 +3,20 @@ import React from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const SafeContianer = (props: { children: React.ReactNode }) => {
+interface SafeContaierProps {
+  children: React.ReactNode;
+  variant?: "primary" | "secondary";
+}
+
+const SafeContianer = (props: SafeContaierProps) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView
         style={{
           flex: 1,
           paddingHorizontal: 16,
-          backgroundColor: Colors.background,
+          backgroundColor:
+            props.variant === "secondary" ? "transparent" : Colors.background,
           gap: 16,
         }}
       >

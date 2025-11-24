@@ -1,12 +1,26 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import TopHeader from "@/components/Header/TopHeader";
+import CartCard from "@/components/Product/CartCard";
+import ButtonIcon from "@/components/ui/ButtonIcon";
+import SafeContianer from "@/components/ui/SafeContianer";
+import { Icons } from "@/contants/Icons";
+import { Link } from "expo-router";
+import React from "react";
 
 const index = () => {
   return (
-    <View>
-      <Text>index</Text>
-    </View>
-  )
-}
+    <SafeContianer variant="secondary">
+      <TopHeader
+        title="My Cart"
+        leftComponent={
+          <Link href=".." asChild>
+            <ButtonIcon icon={Icons.BackArrow} />
+          </Link>
+        }
+      />
 
-export default index
+      <CartCard />
+    </SafeContianer>
+  );
+};
+
+export default index;
