@@ -10,7 +10,7 @@ import SwipeButton from "@/components/ui/SwipeButton";
 import { Colors } from "@/contants/Colors";
 import { Icons } from "@/contants/Icons";
 import { Sizes } from "@/contants/Sizes";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import LottieView from "lottie-react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -28,6 +28,16 @@ const index = () => {
     if (isLoading) loaderAnimation.current?.play();
     else loaderAnimation.current?.pause();
   }, [isLoading]);
+
+  const handleCheckout = () => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+
+      router.push("/(common)/success");
+    }, 3000);
+  };
 
   return (
     <SafeContianer variant="secondary">
@@ -86,16 +96,7 @@ const index = () => {
           </View>
         </View>
 
-        <SwipeButton
-          title="Checkout"
-          onSuccess={() => {
-            setIsLoading(true);
-
-            setTimeout(() => {
-              setIsLoading(false);
-            }, 3000);
-          }}
-        />
+        <SwipeButton title="Checkout" onSuccess={handleCheckout} />
       </View>
 
       {isLoading && (
