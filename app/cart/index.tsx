@@ -4,13 +4,15 @@ import Button from "@/components/ui/Button";
 import ButtonIcon from "@/components/ui/ButtonIcon";
 import InputField from "@/components/ui/InputField";
 import Label from "@/components/ui/Label";
+import LottieLoader from "@/components/ui/LottieLoader";
 import SafeContianer from "@/components/ui/SafeContianer";
 import SwipeButton from "@/components/ui/SwipeButton";
 import { Colors } from "@/contants/Colors";
 import { Icons } from "@/contants/Icons";
 import { Sizes } from "@/contants/Sizes";
 import { Link } from "expo-router";
-import React from "react";
+import LottieView from "lottie-react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 const DUMMY_DATA = [
@@ -19,6 +21,14 @@ const DUMMY_DATA = [
 ];
 
 const index = () => {
+  const loaderAnimation = useRef<LottieView>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) loaderAnimation.current?.play();
+    else loaderAnimation.current?.pause();
+  }, [isLoading]);
+
   return (
     <SafeContianer variant="secondary">
       <TopHeader
@@ -79,11 +89,23 @@ const index = () => {
         <SwipeButton
           title="Checkout"
           onSuccess={() => {
-            // TODO: Handle checkout success
-            console.log("Cart checkout succeeded");
+            setIsLoading(true);
+
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 3000);
           }}
         />
       </View>
+
+      {isLoading && (
+        <View style={styles.loaderView}>
+          <LottieLoader
+            source={require("@/assets/animation/cartLoader.json")}
+            ref={loaderAnimation}
+          />
+        </View>
+      )}
     </SafeContianer>
   );
 };
@@ -101,6 +123,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.textSecondary,
     height: 1,
     width: "100%",
+  },
+  loaderView: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
