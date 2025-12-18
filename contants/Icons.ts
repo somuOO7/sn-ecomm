@@ -9,6 +9,7 @@ export const Icons = {
   HomeFill: require("@/assets/icons/home-fill.svg"),
   HomeOutline: require("@/assets/icons/home-outline.svg"),
   Minus: require("@/assets/icons/minus.svg"),
+  NextArrow: require("@/assets/icons/next-arrow.svg"),
   Plus: require("@/assets/icons/plus.svg"),
   ProfileFill: require("@/assets/icons/profile-fill.svg"),
   ProfileOutline: require("@/assets/icons/profile-outline.svg"),

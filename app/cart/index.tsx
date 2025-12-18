@@ -5,6 +5,7 @@ import ButtonIcon from "@/components/ui/ButtonIcon";
 import InputField from "@/components/ui/InputField";
 import Label from "@/components/ui/Label";
 import SafeContianer from "@/components/ui/SafeContianer";
+import SwipeButton from "@/components/ui/SwipeButton";
 import { Colors } from "@/contants/Colors";
 import { Icons } from "@/contants/Icons";
 import { Sizes } from "@/contants/Sizes";
@@ -74,6 +75,14 @@ const index = () => {
             </Label>
           </View>
         </View>
+
+        <SwipeButton
+          title="Checkout"
+          onSuccess={() => {
+            // TODO: Handle checkout success
+            console.log("Cart checkout succeeded");
+          }}
+        />
       </View>
     </SafeContianer>
   );

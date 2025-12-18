@@ -74,7 +74,7 @@ const ButtonIcon = (props: ButtonIconProps) => {
   };
 
   return (
-    <Animated.View style={pressableAnimatedStyle}>
+    <Animated.View {...props} style={[pressableAnimatedStyle, props.style]}>
       <Pressable
         {...props}
         onPressIn={pressableFadeOut}
@@ -113,6 +113,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: Sizes.borderRadius,
     overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
   },
   icon: {
     width: 24,
