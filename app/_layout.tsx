@@ -1,6 +1,9 @@
+import LottieLoader from "@/components/ui/LottieLoader";
+import { useLoader } from "@/stores/loaderState";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, useRouter } from "expo-router";
-import { useEffect } from "react";
+import LottieView from "lottie-react-native";
+import { useEffect, useRef } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
@@ -17,6 +20,15 @@ export default function RootLayout() {
     "SN-SemiBold": require("@/assets/fonts/Quicksand-SemiBold.ttf"),
   });
 
+  const loaderRef = useRef<LottieView>(null);
+
+  const { isLoading } = useLoader();
+
+  useEffect(() => {
+    if (isLoading) loaderRef.current?.play();
+    else loaderRef.current?.pause();
+  }, [isLoading]);
+
   useEffect(() => {
     if (fontLoaded || fontError) {
       SplashScreen.hideAsync();
@@ -30,6 +42,15 @@ export default function RootLayout() {
           headerShown: false,
         }}
       />
+
+      {/* LOADER CODE */}
+      {isLoading && (
+        <LottieLoader
+          source={require("@/assets/animation/loader.json")}
+          ref={loaderRef}
+          style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+        />
+      )}
     </GestureHandlerRootView>
   );
 }

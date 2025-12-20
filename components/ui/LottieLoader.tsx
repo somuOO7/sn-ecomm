@@ -1,15 +1,22 @@
 import LottieView, { AnimationObject } from "lottie-react-native";
 import React, { Ref } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ViewStyle } from "react-native";
 
 interface LottieLoaderProps {
   source: string | AnimationObject | { uri: string };
   ref: Ref<LottieView>;
+  style?: ViewStyle;
 }
 
 const LottieLoader = (props: LottieLoaderProps) => {
   return (
-    <View style={[styles.fullScreenCover, { backgroundColor: "#00000040" }]}>
+    <View
+      style={[
+        styles.fullScreenCover,
+        { backgroundColor: "#00000040" },
+        props.style,
+      ]}
+    >
       <LottieView
         autoPlay
         ref={props.ref}

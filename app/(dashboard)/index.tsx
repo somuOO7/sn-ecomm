@@ -1,9 +1,29 @@
 import MultiBannerLarge from "@/components/Banner/MultiBannerLarge";
 import DashboardTopHeader from "@/components/Header/DashboardTopHeader";
+import Label from "@/components/ui/Label";
 import SafeContianer from "@/components/ui/SafeContianer";
 import SearchWithFilter from "@/components/ui/SearchWithFilter";
+import { getProducts } from "@/services/api/products.api";
+import { useLoader } from "@/stores/loaderState";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 
 export default function Index() {
+  const { isLoading, setIsLoading } = useLoader();
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoading(true);
+      const makeAPICall = async () => {
+        try {
+          await getProducts();
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      makeAPICall();
+    }, [])
+  );
+
   return (
     <SafeContianer>
       <DashboardTopHeader />
@@ -34,6 +54,8 @@ export default function Index() {
           },
         ]}
       />
+
+      <Label>Test</Label>
     </SafeContianer>
   );
 }
