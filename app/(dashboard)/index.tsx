@@ -1,6 +1,7 @@
 import MultiBannerLarge from "@/components/Banner/MultiBannerLarge";
 import DashboardTopHeader from "@/components/Header/DashboardTopHeader";
 import CategorySelector from "@/components/Product/CategorySelector";
+import GridCard from "@/components/Product/GridCard";
 import SafeContianer from "@/components/ui/SafeContianer";
 import SearchWithFilter from "@/components/ui/SearchWithFilter";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -8,9 +9,9 @@ import { getProducts } from "@/services/api/products.api";
 import { useCategory } from "@/stores/cateogyStore";
 import { useLoader } from "@/stores/loaderState";
 import { useProduct } from "@/stores/productStore";
-import { Image } from "expo-image";
 import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";
+import { View } from "react-native";
 
 export default function Index() {
   const { setIsLoading } = useLoader();
@@ -69,11 +70,16 @@ export default function Index() {
       />
 
       <SectionTitle title="Popular Products" />
-      <Image
-        source={{ uri: products[0]?.imageUrl }}
-        style={{ height: 100, width: 100 }}
-        contentFit="cover"
-      />
+      <View style={{ flexDirection: "row", gap: 16, flexWrap: "wrap" }}>
+        {products.map((product) => (
+          <GridCard
+            key={product.id}
+            title={product.title}
+            price={product.price}
+            imageUrl={product.imageUrl}
+          />
+        ))}
+      </View>
     </SafeContianer>
   );
 }

@@ -1,5 +1,4 @@
 import TopHeader from "@/components/Header/TopHeader";
-import GridCard from "@/components/Product/GridCard";
 import SafeContianer from "@/components/ui/SafeContianer";
 import SearchWithFilter from "@/components/ui/SearchWithFilter";
 import React from "react";
@@ -12,9 +11,9 @@ const wishlist = () => {
       <SearchWithFilter />
 
       <View style={{ flexDirection: "row", gap: 16, flexWrap: "wrap" }}>
+        {/* <GridCard />
         <GridCard />
-        <GridCard />
-        <GridCard />
+        <GridCard /> */}
       </View>
     </SafeContianer>
   );

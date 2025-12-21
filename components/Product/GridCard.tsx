@@ -7,14 +7,20 @@ import { StyleSheet, View } from "react-native";
 import ButtonIcon from "../ui/ButtonIcon";
 import Label from "../ui/Label";
 
-const GridCard = () => {
+interface GridCardProps {
+  title: string;
+  price: number;
+  imageUrl: string;
+}
+
+const GridCard = (props: GridCardProps) => {
   return (
     <View style={{ flex: 1, gap: 8, minWidth: "40%" }}>
       <View style={styles.imageContainer}>
         <Image
-          source={require("@/assets/images/dummy/dummy-1.png")}
+          source={{ uri: props.imageUrl }}
           style={{ width: "100%", height: 150 }}
-          contentFit="contain"
+          contentFit="cover"
         />
         <View style={[styles.imageContainer, styles.wishlistIconContainer]}>
           <Image
@@ -33,14 +39,14 @@ const GridCard = () => {
         }}
       >
         <View>
-          <Label variant="bold">Headphone</Label>
+          <Label variant="bold">{props.title}</Label>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-            <Label variant="bold">$50.00</Label>
+            <Label variant="bold">${props.price?.toFixed(2)}</Label>
             <Label
               variant="light"
               style={{ textDecorationLine: "line-through", fontSize: 10 }}
             >
-              $100.00
+              ${(props.price * 1.2).toFixed(2)}
             </Label>
           </View>
         </View>
