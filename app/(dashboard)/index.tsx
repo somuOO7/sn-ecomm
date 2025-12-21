@@ -1,21 +1,30 @@
 import MultiBannerLarge from "@/components/Banner/MultiBannerLarge";
 import DashboardTopHeader from "@/components/Header/DashboardTopHeader";
-import Label from "@/components/ui/Label";
+import CategorySelector from "@/components/Product/CategorySelector";
 import SafeContianer from "@/components/ui/SafeContianer";
 import SearchWithFilter from "@/components/ui/SearchWithFilter";
+import SectionTitle from "@/components/ui/SectionTitle";
 import { getProducts } from "@/services/api/products.api";
+import { useCategory } from "@/stores/cateogyStore";
 import { useLoader } from "@/stores/loaderState";
+import { useProduct } from "@/stores/productStore";
+import { Image } from "expo-image";
 import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";
 
 export default function Index() {
-  const { isLoading, setIsLoading } = useLoader();
+  const { setIsLoading } = useLoader();
+  const { products } = useProduct();
+  const { setCategories } = useCategory();
+
   useFocusEffect(
     useCallback(() => {
       setIsLoading(true);
       const makeAPICall = async () => {
         try {
           await getProducts();
+          // MAKE CATEGORY API CALL HERE
+          setCategories(["All", "Men", "Women", "Kids", "Accessories"]);
         } finally {
           setIsLoading(false);
         }
@@ -28,6 +37,10 @@ export default function Index() {
     <SafeContianer>
       <DashboardTopHeader />
       <SearchWithFilter />
+
+      <SectionTitle title="Categories" />
+      <CategorySelector />
+
       <MultiBannerLarge
         bannerList={[
           {
@@ -55,7 +68,12 @@ export default function Index() {
         ]}
       />
 
-      <Label>Test</Label>
+      <SectionTitle title="Popular Products" />
+      <Image
+        source={{ uri: products[0]?.imageUrl }}
+        style={{ height: 100, width: 100 }}
+        contentFit="cover"
+      />
     </SafeContianer>
   );
 }
