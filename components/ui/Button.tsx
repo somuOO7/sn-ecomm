@@ -12,6 +12,7 @@ import Label from "./Label";
 interface ButtonProps extends PressableProps {
   title: string;
   variant?: "primary" | "secondary";
+  buttonLength?: "short" | "long";
 }
 
 const Button = (props: ButtonProps) => {
@@ -30,8 +31,16 @@ const Button = (props: ButtonProps) => {
   };
 
   return (
-    <Animated.View style={pressableAnimatedStyle}>
+    <Animated.View
+      style={[
+        pressableAnimatedStyle,
+        props.buttonLength === "long" && {
+          width: "100%",
+        },
+      ]}
+    >
       <Pressable
+        {...props}
         style={(state) => [
           {
             backgroundColor:
@@ -42,11 +51,11 @@ const Button = (props: ButtonProps) => {
         ]}
         onPressIn={pressableFadeOut}
         onPressOut={pressableFadeIn}
-        {...props}
       >
         <Label
           style={{
             color: props.variant === "primary" ? Colors.white : Colors.black,
+            textAlign: "center",
           }}
         >
           {props.title}

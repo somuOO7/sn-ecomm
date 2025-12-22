@@ -1,9 +1,9 @@
 import { Colors } from "@/contants/Colors";
 import { Sizes } from "@/contants/Sizes";
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, TextInputProps, View } from "react-native";
 
-interface InputFieldProps {
+interface InputFieldProps extends TextInputProps {
   placeholder: string;
   leftComponent?: React.ReactNode;
   rightComponent?: React.ReactNode;
@@ -14,6 +14,7 @@ const InputField = (props: InputFieldProps) => {
     <View style={styles.container}>
       {props.leftComponent}
       <TextInput
+        {...props}
         placeholder={props.placeholder}
         placeholderTextColor={Colors.gray}
         style={styles.input}
