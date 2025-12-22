@@ -1,5 +1,6 @@
 import LottieLoader from "@/components/ui/LottieLoader";
 import { useLoader } from "@/stores/loaderStore";
+import { useUserData } from "@/stores/userDataStore";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
@@ -10,6 +11,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const router = useRouter();
+  const { userData } = useUserData();
 
   // Font loading
   const [fontLoaded, fontError] = useFonts({
@@ -29,11 +31,23 @@ export default function RootLayout() {
     else loaderRef.current?.pause();
   }, [isLoading]);
 
+  // Check font loading and hide splash screen
   useEffect(() => {
     if (fontLoaded || fontError) {
       SplashScreen.hideAsync();
     }
   }, [fontLoaded, fontError]);
+
+  // Check authentication and route accordingly
+  useEffect(() => {
+    if (fontLoaded || fontError) {
+      if (!userData.email) {
+        router.replace("/auth/getStarted");
+      } else {
+        router.replace("/(dashboard)");
+      }
+    }
+  }, [fontLoaded, fontError, userData.email]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

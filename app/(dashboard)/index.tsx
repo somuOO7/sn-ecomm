@@ -14,9 +14,9 @@ import { useCallback } from "react";
 import { ScrollView, View } from "react-native";
 
 export default function Index() {
+  const { setCategories } = useCategory();
   const { setIsLoading } = useLoader();
   const { products } = useProduct();
-  const { setCategories } = useCategory();
 
   useFocusEffect(
     useCallback(() => {
