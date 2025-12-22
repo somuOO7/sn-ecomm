@@ -7,7 +7,7 @@ import SearchWithFilter from "@/components/ui/SearchWithFilter";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { getProducts } from "@/services/api/products.api";
 import { useCategory } from "@/stores/cateogyStore";
-import { useLoader } from "@/stores/loaderState";
+import { useLoader } from "@/stores/loaderStore";
 import { useProduct } from "@/stores/productStore";
 import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";

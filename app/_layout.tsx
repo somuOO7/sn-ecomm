@@ -1,5 +1,5 @@
 import LottieLoader from "@/components/ui/LottieLoader";
-import { useLoader } from "@/stores/loaderState";
+import { useLoader } from "@/stores/loaderStore";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
